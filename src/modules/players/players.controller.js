@@ -19,11 +19,11 @@ exports.getAllPlayers = async (req, res) => {
 exports.getPlayerById = async (req, res) => {
   try {
     const result = await service.getPlayerById(req.user.id, req.params.userId);
-    res
+    return res
       .status(200)
       .json(new ApiResponse(200, "Player fetched successfully", result));
   } catch (error) {
-    res
+    return res
       .status(500)
       .json(
         new ApiResponse(500, "Error fetching player", { error: error.message })

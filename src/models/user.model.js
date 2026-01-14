@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   city: String,
   phoneNumber: { type: String, unique: true },
   email: { type: String, unique: true },
+  isDeleted: { type: Boolean, default: false },//TODO
   password: { type: String, select: false }
 },{timestamps:true});
 

@@ -5,6 +5,10 @@ const profileRoutes = require("./modules/profile/profile.routes");
 const app = express();
 app.use(express.json());
 
+//cors is missing
+const cors=require('cors')
+
+app.use(cors({origin:['abc.com']}))//TODO
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 

@@ -2,7 +2,9 @@ const User = require("../../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-exports.register = async (data) => {
+exports.register = async (data) => {//TODO: ISMEMAIL ALREADY EXIST
+  //TODO: JOI VAL MISSING
+  //TODO: TRY AND CATCH IS MISSING
   data.password = await bcrypt.hash(data.password,10);
   const user = await User.create(data);
   const token = jwt.sign({id:user._id}, process.env.JWT_SECRET);
