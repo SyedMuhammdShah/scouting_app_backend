@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
+const HttpStatusCode = require("../utils/HttpStatusCode");
 
 module.exports = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return HttpStatusCode.sendUnauthorized(res, "Unauthorized: No token provided");
   }
 
   try {
@@ -13,6 +14,6 @@ module.exports = (req, res, next) => {
     req.user = { id: decoded.id };
     next();
   } catch (err) {
-    res.status(401).json({ message: "Invalid token" });
+    return HttpStatusCode.sendUnauthorized(res, "Invalid or expired token");
   }
 };
