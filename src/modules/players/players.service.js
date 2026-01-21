@@ -2,7 +2,7 @@ const User = require("../../models/user.model");
 const PlayerProfile = require("../../models/playerProfile.model");
 
 // Get all players (excluding the current user)
-exports.getAllPlayers = async (currentUserId, queryParams) => {
+exports.getAllPlayers = async (currentUserId, queryParams = {}) => {
   try {
     // Get the current user to exclude them from results
     const currentUser = await User.findById(currentUserId);

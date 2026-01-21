@@ -5,9 +5,11 @@ const HttpStatusCode = require("../utils/HttpStatusCode");
  * Middleware to validate request body/params/query using Joi schema
  * @param {Object} schema - Joi schema object with body, query, params properties
  */
-const validateRequest = (schema) => {
+const validateRequest = (schema, property) => {
   return (req, res, next) => {
-    const dataToValidate = {
+    // If a property is specified (e.g., 'body', 'query', 'params'), 
+    // validate just that property against the schema.
+    const dataToValidate = property ? req[property] : {
       body: req.body || {},
       query: req.query || {},
       params: req.params || {},
@@ -31,10 +33,15 @@ const validateRequest = (schema) => {
       );
     }
 
-    // Replace the request objects with validated data
-    req.body = value.body;
-    req.query = value.query;
-    req.params = value.params;
+    // Replace the request object(s) with validated data
+    if (property) {
+      req[property] = value;
+    } else {
+      req.body = value.body || {};
+      req.query = value.query || {};
+      req.params = value.params || {};
+    }
+    
     next();
   };
 };
