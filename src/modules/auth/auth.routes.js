@@ -5,13 +5,13 @@ const authValidationSchemas = require("./auth.validation");
 
 router.post(
   "/register",
-  validateRequest(authValidationSchemas.register, "body"),
+  validateRequest(authValidationSchemas.register),
   controller.register
 );
 
 router.post(
   "/login",
-  validateRequest(authValidationSchemas.login, "body"),
+  validateRequest(authValidationSchemas.login),
   controller.login
 );
 
