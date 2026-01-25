@@ -10,7 +10,7 @@
 
 **Description:** Create a new user account
 
-### CURL Command:  
+### CURL Command:    
 
 ```bash
 curl --location 'http://localhost:5000/api/auth/register' \
