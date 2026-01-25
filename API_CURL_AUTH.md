@@ -7,7 +7,7 @@
 ## 1. Register U
 
 **Endpoint:** `POST /api/auth/register`
-
+   
 **Description:** Create a new user account
 
 ### CURL Command:    
