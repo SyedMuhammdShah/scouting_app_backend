@@ -4,7 +4,7 @@
 
 ---
 
-## 1. Register User
+## 1. Register U
 
 **Endpoint:** `POST /api/auth/register`
 
