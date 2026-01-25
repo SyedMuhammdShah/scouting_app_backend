@@ -3,7 +3,7 @@ name: Deploy Backend
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -23,6 +23,6 @@ jobs:
           script: |
             export PATH=$PATH:/usr/bin:/usr/local/bin
             cd ~/projects/backend
-            git pull origin main
+            git pull origin master
             npm install
             pm2 restart backend || pm2 start src/server.js --name backend
