@@ -3,7 +3,11 @@ const HttpStatusCode = require("../../utils/HttpStatusCode");
 
 exports.register = async (req, res) => {
   try {
-    const result = await service.register(req.body);
+    const data = { ...req.body };
+    if (req.file) {
+      data.profile = `/uploads/profiles/${req.file.filename}`;
+    }
+    const result = await service.register(data);
     HttpStatusCode.sendCreated(
       res,
       "User registered successfully",
