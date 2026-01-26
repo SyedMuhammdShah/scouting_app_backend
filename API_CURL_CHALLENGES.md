@@ -35,7 +35,7 @@ curl --location 'http://localhost:5000/api/challenges' \
 
 ---
 
-## 3. Respond to a Challenge
+## 3. Respond to a Challenge     
 Accept or Reject a pending challenge.
 
 ```bash
