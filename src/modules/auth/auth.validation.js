@@ -40,10 +40,10 @@ const authValidationSchemas = {
           "string.base": "Full name must be a string",
         }),
       profile: Joi.string()
-        .uri()
+        .allow("", null)
         .optional()
         .messages({
-          "string.uri": "Profile must be a valid URL",
+          "string.base": "Profile must be a string",
         }),
       gender: Joi.string()
         .valid("male", "female", "other")

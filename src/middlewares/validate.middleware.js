@@ -15,6 +15,8 @@ const validateRequest = (schema, property) => {
       params: req.params || {},
     };
 
+    console.log("Validation midleware receiving:", JSON.stringify(dataToValidate, null, 2));
+
     const { error, value } = schema.validate(dataToValidate, {
       abortEarly: false,
       stripUnknown: true,
@@ -41,7 +43,7 @@ const validateRequest = (schema, property) => {
       req.query = value.query || {};
       req.params = value.params || {};
     }
-    
+
     next();
   };
 };

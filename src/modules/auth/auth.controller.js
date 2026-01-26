@@ -2,6 +2,8 @@ const service = require("./auth.service");
 const HttpStatusCode = require("../../utils/HttpStatusCode");
 
 exports.register = async (req, res) => {
+  console.log("Registration request body:", req.body);
+  console.log("Registration request file:", req.file);
   try {
     const data = { ...req.body };
     if (req.file) {
