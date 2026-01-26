@@ -13,16 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to server
+      - name: Deploy to Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             export PATH=$PATH:/usr/bin:/usr/local/bin
+
             cd ~/projects/backend
+
             git pull origin main
-            npm install
-            pm2 restart backend || pm2 start src/server.js --name backend
+
+            npm ci --production
+
+            pm2 reload backend || pm2 start src/server.js --name backend
