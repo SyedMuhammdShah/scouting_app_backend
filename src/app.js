@@ -8,7 +8,7 @@ app.use(express.json());
 //cors is missing  
 const cors = require('cors')
 
-app.use(cors({ origin: ['abc.com'] }))//TODO
+app.use(cors({ origin: ['abc.com'] }))
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/connections", require("./modules/connections/connection.routes"));
