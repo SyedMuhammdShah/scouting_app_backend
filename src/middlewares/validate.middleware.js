@@ -15,7 +15,11 @@ const validateRequest = (schema, property) => {
       params: req.params || {},
     };
 
-    console.log("Validation midleware receiving:", JSON.stringify(dataToValidate, null, 2));
+    console.log("--- Validation Debug ---");
+    console.log("Content-Type:", req.headers["content-type"]);
+    console.log("Found body keys:", Object.keys(req.body || {}));
+    console.log("Validated Data:", JSON.stringify(dataToValidate, null, 2));
+    console.log("------------------------");
 
     const { error, value } = schema.validate(dataToValidate, {
       abortEarly: false,
