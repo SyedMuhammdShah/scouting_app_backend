@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 //cors is missing  
-const cors = require('cors')
+const cors = require('cors') 
 
 app.use(cors({ origin: ['abc.com'] }))
 app.use("/api/auth", authRoutes);
