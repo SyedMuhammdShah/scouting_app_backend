@@ -3,6 +3,7 @@ const controller = require("./profile.controller");
 const auth = require("../../middlewares/auth.middleware");
 const validateRequest = require("../../middlewares/validate.middleware");
 const upload = require("../../middlewares/upload.middleware");
+const profileValidationSchemas = require("./profile.validation");
 
 router.get("/me", auth, controller.getMyProfile);
 router.put(
