@@ -6,6 +6,8 @@ const profileRoutes = require("./modules/profile/profile.routes");
 
 const app = express();
 
+app.use("/", (req,res) => res.send("Hello World!"));
+
 // Middleware
 app.use(cors()); // Allow all origins for debugging
 app.use(express.json());
