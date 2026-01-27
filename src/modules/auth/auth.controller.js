@@ -7,8 +7,8 @@ exports.register = async (req, res) => {
   try {
     const data = { ...req.body };
     if (req.file) {
-      // For S3, multer-s3 provides 'location' which is the full URL
-      data.profile = req.file.location;
+      // For S3, multer-s3 provides 'location'. For Local, we use a relative path.
+      data.profile = req.file.location || `/uploads/${req.file.filename}`;
     }
     const result = await service.register(data);
     HttpStatusCode.sendCreated(

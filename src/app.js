@@ -6,7 +6,7 @@ const profileRoutes = require("./modules/profile/profile.routes");
 
 const app = express();
 
-app.use("/", (req,res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("Hello World!"));
 
 // Middleware
 app.use(cors()); // Allow all origins for debugging
@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static files
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+const uploadPath = process.env.UPLOAD_PATH || path.join(__dirname, "../uploads");
+app.use("/uploads", express.static(uploadPath));
 
 // Routes
 app.use("/api/auth", authRoutes);
