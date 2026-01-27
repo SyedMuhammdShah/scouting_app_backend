@@ -2,7 +2,7 @@ const router = require("express").Router();
 const controller = require("./profile.controller");
 const auth = require("../../middlewares/auth.middleware");
 const validateRequest = require("../../middlewares/validate.middleware");
-const profileValidationSchemas = require("./profile.validation");
+const upload = require("../../middlewares/upload.middleware");
 
 router.get("/me", auth, controller.getMyProfile);
 router.put(
@@ -15,7 +15,7 @@ router.put(
 router.post(
   "/media/image",
   auth,
-  validateRequest(profileValidationSchemas.addImage, "body"),
+  upload.single("image"),
   controller.addImage
 );
 

@@ -29,7 +29,22 @@ exports.saveProfile = async (req, res) => {
 
 exports.addImage = async (req, res) => {
   try {
-    const result = await service.addImage(req.user.id, req.body.url);
+    let imageUrl = req.body.url;
+    
+    if (req.file) {
+      if (req.file.location) {
+        imageUrl = req.file.location;
+      } else {
+        const baseUrl = `${req.protocol}://${req.get("host")}`;
+        imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
+      }
+    }
+
+    if (!imageUrl) {
+      throw new Error("No image file or URL provided");
+    }
+
+    const result = await service.addImage(req.user.id, imageUrl);
     HttpStatusCode.sendCreated(
       res,
       "Image uploaded successfully",
