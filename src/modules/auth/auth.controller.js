@@ -15,6 +15,7 @@ exports.register = async (req, res) => {
         const baseUrl = `${req.protocol}://${req.get("host")}`;
         data.profile = `${baseUrl}/uploads/${req.file.filename}`;
       }
+      console.log("Final profile URL constructed:", data.profile);
     }
     const result = await service.register(data);
     HttpStatusCode.sendCreated(

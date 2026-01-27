@@ -6,6 +6,12 @@ const profileRoutes = require("./modules/profile/profile.routes");
 
 const app = express();
 
+// Request logger
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
+});
+
 app.get("/", (req, res) => res.send("Hello World!"));
 
 // Middleware
@@ -15,6 +21,19 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static files
 const uploadPath = process.env.UPLOAD_PATH || path.join(__dirname, "../uploads");
+console.log("Static files being served from:", uploadPath);
+
+// Debug route to see files
+app.get("/debug/uploads", (req, res) => {
+  const fs = require("fs");
+  if (fs.existsSync(uploadPath)) {
+    const files = fs.readdirSync(uploadPath);
+    res.json({ uploadPath, files });
+  } else {
+    res.status(404).json({ error: "Upload path not found", uploadPath });
+  }
+});
+
 app.use("/uploads", express.static(uploadPath));
 
 // Routes
