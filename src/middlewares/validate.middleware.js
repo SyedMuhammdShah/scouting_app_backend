@@ -16,9 +16,12 @@ const validateRequest = (schema, property) => {
     };
 
     console.log("--- Validation Debug ---");
+    console.log("Method:", req.method);
+    console.log("URL:", req.originalUrl);
     console.log("Content-Type:", req.headers["content-type"]);
     console.log("Found body keys:", Object.keys(req.body || {}));
-    console.log("Validated Data:", JSON.stringify(dataToValidate, null, 2));
+    console.log("Found query keys:", Object.keys(req.query || {}));
+    console.log("Validated Data Structure:", JSON.stringify(dataToValidate, null, 2));
     console.log("------------------------");
 
     const { error, value } = schema.validate(dataToValidate, {

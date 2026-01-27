@@ -1,19 +1,20 @@
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 const authRoutes = require("./modules/auth/auth.routes");
 const profileRoutes = require("./modules/profile/profile.routes");
 
 const app = express();
+
+// Middleware
+app.use(cors()); // Allow all origins for debugging
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static files
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-//cors is missing  
-const cors = require('cors') 
-
-app.use(cors({ origin: ['abc.com'] }))
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/connections", require("./modules/connections/connection.routes"));

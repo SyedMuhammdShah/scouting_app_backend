@@ -38,4 +38,4 @@ async function testMultipart() {
 }
 
 testJson();
-// testMultipart(); // Requires server to be running
+testMultipart();
