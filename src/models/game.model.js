@@ -2,36 +2,68 @@ const mongoose = require("mongoose");
 
 const gameSchema = new mongoose.Schema(
   {
+    host: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     players: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
     ],
-    type: {
-      type: String,
-      required: true,
+    pendingPlayers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    quickSetup: {
+      isPrivate: { type: Boolean, default: false },
+      enableChat: { type: Boolean, default: true },
+      enablePayment: { type: Boolean, default: true },
+      copyPreviousGame: { type: Boolean, default: false },
+      backgroundImage: String,
     },
-    location: {
-      type: String,
-      required: true,
+    details: {
+      title: { type: String, required: true },
+      description: String,
+      location: { type: String, required: true },
+      coordinates: {
+        lat: Number,
+        long: Number,
+      },
     },
-    date: {
-      type: Date,
-      required: true,
+    schedule: {
+      date: { type: Date, required: true },
+      time: String,
+      duration: String, // e.g., "90 mins"
+      playersNeeded: Number,
     },
-    duration: {
-      type: Number, // in minutes
-      required: true,
+    rules: {
+      groundType: String, // Turf, Natural Grass
+      matchFormat: String, // 5v5, 6v6, etc.
+      ageRange: {
+        from: Number,
+        to: Number,
+      },
+      gender: {
+        type: String,
+        enum: ["Male", "Female", "Mix"],
+        default: "Mix",
+      },
     },
-    challenge: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Challenge",
+    payment: {
+      level: String, // Amateur, Intermediate, Pro
+      option: String, // Online, Cash
+      price: { type: Number, default: 0 },
+      currency: { type: String, default: "USD" },
     },
     status: {
       type: String,
-      enum: ["upcoming", "completed", "cancelled"],
-      default: "upcoming",
+      enum: ["OPEN", "FULL", "STARTED", "COMPLETED", "CANCELLED"],
+      default: "OPEN",
     },
   },
   { timestamps: true }
